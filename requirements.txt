@@ -1,0 +1,9 @@
+-U wxPython
+pandas
+numpy
+xgboost
+os
+sklearn
+Gooey
+
+pd.DataFrame(data = data[0]["shoulder_elv_r"].values[argrelextrema(data[0]["shoulder_elv_r"].values, np.greater)], columns = ["Arr"])["Arr"][pd.DataFrame(data = data[0]["shoulder_elv_r"].values[argrelextrema(data[0]["shoulder_elv_r"].values, np.greater)], columns = ["Arr"])["Arr"]> tests.mean()*1.5].values
