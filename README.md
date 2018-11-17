@@ -1,2 +1,2 @@
-# EECS_332_Final_Project
+# 332_FP
 An automatic puzzle solver
