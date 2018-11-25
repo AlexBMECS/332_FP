@@ -90,6 +90,20 @@ def get_avg_angle(corners):
 	return avg_angle
 
 
+def get_area(corners):
+	c1 = corners[0]
+	c2 = corners[1]
+	c3 = corners[2]
+	c4 = corners[3]
+
+	a = np.hypot(c2[0]-c1[0],c2[1]-c1[1])
+	b = np.hypot(c4[0]-c3[0],c4[1]-c3[1])
+	h = np.hypot(c4[0]-c1[0],c4[1]-c1[1])
+
+	area = (a+b)*h/2
+	return area
+
+
 corn1 = (1, 2)
 corn2 = (2, 2)
 corn3 = (1, 3)
@@ -99,6 +113,8 @@ corners = [corn1, corn2, corn3, corn4]
 output = process_corners(corners)
 print(output)
 get_avg_angle(output)
+print(get_area(output))
+
 
 plt.scatter(*zip(*output))
 plt.show()
