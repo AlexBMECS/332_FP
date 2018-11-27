@@ -90,7 +90,6 @@ def get_avg_angle(corners):
 	return avg_angle
 
 
-<<<<<<< HEAD
 def get_area(corners):
 	c1 = corners[0]
 	c2 = corners[1]
@@ -105,22 +104,21 @@ def get_area(corners):
 	return area
 
 
-=======
->>>>>>> efe2cb74641046349e98fb8fc9fb2536fef1542d
-corn1 = (1, 2)
-corn2 = (2, 2)
-corn3 = (1, 3)
-corn4 = (2, 3)
-corners = [corn1, corn2, corn3, corn4]
+def main():
+	corn1 = (1, 2)
+	corn2 = (2, 2)
+	corn3 = (1, 3)
+	corn4 = (2, 3)
+	corners = [corn1, corn2, corn3, corn4]
 
-output = process_corners(corners)
-print(output)
-get_avg_angle(output)
-<<<<<<< HEAD
-print(get_area(output))
+	output = process_corners(corners)
+	print(output)
+	print(np.degrees(get_avg_angle(output)))
+	print(get_area(output))
 
-=======
->>>>>>> efe2cb74641046349e98fb8fc9fb2536fef1542d
+	plt.scatter(*zip(*output))
+	plt.show()
 
-plt.scatter(*zip(*output))
-plt.show()
+
+if __name__ == "__main__":
+	main()
