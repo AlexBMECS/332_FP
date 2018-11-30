@@ -24,11 +24,12 @@ for label in labels:
 
 	for i in range(segment_bw.shape[0]):
 		for j in range(segment_bw.shape[1]):
-			if segment_bw[i,j]:
+			if segment_bw[i,j] != 0:
 				segment_clr[i,j,0] = img[i,j,0]
 				segment_clr[i,j,1] = img[i,j,1]
 				segment_clr[i,j,2] = img[i,j,2]
 
+	# segment_clr = segment_clr.astype('uint8')
 
 	subimage_bw = segment_bw[findTop(segment_bw)-100:findBottom(segment_bw)+100,
  		findLeft(segment_bw)-100:findRight(segment_bw)+100]
@@ -49,28 +50,21 @@ for label in labels:
 	subimage_clr[:,:,2] = segment_clr[findTop(segment_bw)-100:findBottom(segment_bw)+100,
 			findLeft(segment_bw)-100:findRight(segment_bw)+100, 2]
 
+	subimage_clr = subimage_clr.astype('uint8')
 
-	plt.imshow(subimage_clr)
-	plt.show()
-	exit()
-
+	# plt.imshow(cv2.cvtColor(subimage_clr, cv2.COLOR_BGR2RGB))
+	# plt.show()
 
 	segmented_bw.append(subimage_bw)
-	segmented_clr.append(segment_clr)
+	segmented_clr.append(subimage_clr)
 
 
-plt.imshow(segmented_bw[0])
-plt.show()
+# for i in range(len(segmented_bw)):
+# 	piece = segmented_bw[i]
+# 	np.savetxt('piece_%s' % i, piece, delimiter=',')
 
-# subimage = segmented[0][findTop(segmented[0])-100:findBottom(segmented[0])+100,
-# 			findLeft(segmented[0])-100:findRight(segmented[0])+100]
 
-# plt.subplot(221)
-# plt.imshow(segmented[0])
-# plt.subplot(222)
-# plt.imshow(segmented[1])
-# plt.subplot(223)
-# plt.imshow(segmented[2])
-# plt.subplot(224)
-# plt.imshow(segmented[3])
-# plt.show()
+# for i in range(len(segmented_clr)):
+# 	piece = segmented_clr[i].astype('uint8')
+# 	np.save('piece_clr_%s.npy' % i, piece,)
+
