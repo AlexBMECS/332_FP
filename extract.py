@@ -2,11 +2,46 @@ import cv2
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import sys
-from align import findTop, findBottom, findLeft, findRight
+# import sys
+# from align import findTop, findBottom, findLeft, findRight
+
+def findTop(img):
+	# E = cv2.Canny(img,100,200)
+	for i in range(img.shape[0]): # rows
+		row = img[i,:]
+
+		if len(row[row > 0]) > 0:
+			return i
 
 
-def pieceExtraction(CCL, img, store_files=True):
+def findBottom(img):
+	# E = cv2.Canny(img,100,200)
+	for i in reversed(range(img.shape[0])):
+		row = img[i,:]
+		
+		if len(row[row > 0]) > 0:
+			return i
+
+
+def findLeft(img):
+	# E = cv2.Canny(img,100,200)
+	for i in range(img.shape[1]):
+		col = img[:,i]
+
+		if len(col[col > 0]) > 0:
+			return i
+
+
+def findRight(img):
+	# E = cv2.Canny(img,100,200)
+	for i in reversed(range(img.shape[1])):
+		col = img[:,i]
+
+		if len(col[col > 0]) > 0:
+			return i
+
+
+def pieceExtraction(CCL, img, store_files=True	):
 	labels = np.unique(CCL)
 	kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (8, 8))
 	closing = cv2.morphologyEx(CCL, cv2.MORPH_CLOSE, kernel)
