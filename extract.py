@@ -41,7 +41,7 @@ def findRight(img):
 			return i
 
 
-def pieceExtraction(CCL, img, store_files=True	):
+def pieceExtraction(CCL, img, store_files=True):
 	labels = np.unique(CCL)
 	kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (8, 8))
 	closing = cv2.morphologyEx(CCL, cv2.MORPH_CLOSE, kernel)
@@ -105,7 +105,10 @@ def pieceExtraction(CCL, img, store_files=True	):
 
 def main():
 	img = cv2.imread('squirrel.jpg')
-	CCL = np.load('labeled_components')
+
+	print(img[0,0].shape)
+	exit()
+	CCL = np.loadtxt('labeled_components.csv', delimiter=',')
 	pieceExtraction(CCL, img)
 
 
