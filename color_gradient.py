@@ -3,6 +3,9 @@ import numpy as np
 
 
 def color_error(pixel_a, pixel_b):
+	'''
+	Euclidian distance error caluclation between two pixels
+	'''
 	r_1 = pixel_a[2]
 	g_1 = pixel_a[1]
 	b_1 = pixel_a[0]
@@ -17,15 +20,11 @@ def color_error(pixel_a, pixel_b):
 
 def average_error(region_1, region_2):
 	'''
-	Assume input of two numpy nd-arrays
-
 	Take average of each row (across columns). Assume comparisons made row-by-row.
 	Will have # pixels averaged corresponding to # rows.
 	'''
 
-	# Apply transpose: horizontal comparisons: want matrix to be taller than it is wide (more rows than columns)
-
-
+	# Transpose ndarrays to check for correct shape.
 	if region_1.shape[0] < region_1.shape[1]:
 		region_1 = region_1.swapaxes(0,1)
 
@@ -38,6 +37,7 @@ def average_error(region_1, region_2):
 
 	err = 0
 
+	# Compute error for each averaged row
 	for i in range(avg_1.shape[0]):
 		pixel_1 = avg_1[i,:]
 		pixel_2 = avg_2[i,:]
