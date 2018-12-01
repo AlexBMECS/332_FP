@@ -8,7 +8,6 @@ import numpy as np
 import cv2 as cv
 import pandas as pd
 from matplotlib import pyplot as plt
-%matplotlib inline
 from matplotlib.pyplot import figure
 import matplotlib.image as mpimg
 import math
@@ -16,7 +15,7 @@ import time
 from scipy import ndimage
 
 def thresholding_morph(filename):
-    t = image_read(filename)
+    t = cv.imread(filename)
     #t =  t[750:1750,750:1750,:]
     tn = cv.cvtColor(t,cv.COLOR_BGR2GRAY)
     dim = tn.shape
@@ -27,19 +26,19 @@ def thresholding_morph(filename):
                 tn[x,y] = 255
             else:
                 tn[x,y] = 0
-    kernel = cv.getStructuringElement(cv.MORPH_RECT,(3,4))
+    kernel = cv.getStructuringElement(cv.MORPH_RECT,(20,25))
     closing = cv.morphologyEx(tn, cv.MORPH_CLOSE, kernel)
     opening = cv.morphologyEx(closing, cv.MORPH_OPEN, kernel)
     return opening
 
 
-def CCL(file):
+def CCL(img):
     def find_min(e_table, number):
         t = np.where(e_table[number] == 1)
         return t[0][0]
 
     #Pass 1
-    img = file
+    img = img
     I = img[:,:]/(255)
     I = I.astype(int)
 
