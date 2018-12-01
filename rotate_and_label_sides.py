@@ -7,18 +7,28 @@ from rotate import rotate
 
 def label_sides(img, piece, clrpiece):
 
+	interval = [1.1, 2.1]
+	if piece == 'new_piece_10':
+		n = 50
+	elif piece == 'new_piece_6':
+		n = 50
+	else:
+		n = 30
+
 	# plt.imshow(img)
 	# plt.title('{} pre-rotated image'.format(piece))
 	# plt.figure()
 
-	if piece == 'piece_5':
-		interval = [1.4, 1.7]
-	elif piece == 'piece_11':
-		interval = [1.2, 2.1]
-	else:
-		interval = [1.25, 2.1]
+	
 
-	corners = find_corners(img, interval)
+	# if piece == 'new_piece_5':
+	# 	interval = [1.4, 1.7]
+	# elif piece == 'new_piece_11':
+	# 	interval = [1.2, 2.1]
+	# else:
+	# 	interval = [1.25, 2.1]
+
+	corners = find_corners(img, interval, n)
 	# plt.imshow(img)
 	# for corner in corners:
 	# 	plt.plot(corner[0], corner[1], 'ro')
@@ -33,13 +43,14 @@ def label_sides(img, piece, clrpiece):
 	# plt.title('new center created from corners')
 	# plt.show()
 
-	angle = math.degrees(find_offset(img, center))
+	angle = math.degrees(find_offset(img, center, n))
 	#print('angle', angle)
 	img = rotate(img, angle)
 	# plt.imshow(img)
 	# plt.title('{} rotated image'.format(piece))
 	# plt.figure()
-	corners = find_corners(img, interval)
+	# plt.show()
+	corners = find_corners(img, interval, n)
 	new_corners = []
 	for corner in corners:
 		corner[0] = int(corner[0])
@@ -69,15 +80,15 @@ def label_sides(img, piece, clrpiece):
 			x = int(x)
 			y = int(y)
 			shape = 0
-			if img[y - 10][x] > 0 and img[y + 10][x] == 0:
+			if img[y - 20][x] > 0 and img[y + 20][x] == 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'flat', fontsize=12, color='white')
 				shape = 0
-			elif img[y - 10][x] > 0 and img[y + 10][x] > 0:
+			elif img[y - 20][x] > 0 and img[y + 20][x] > 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'head', fontsize=12, color='white')
 				shape = 1
-			elif img[y - 10][x] == 0 and img[y + 10][x] == 0:
+			elif img[y - 20][x] == 0 and img[y + 20][x] == 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'hole', fontsize=12, color='white')
 				shape = -1
@@ -94,15 +105,15 @@ def label_sides(img, piece, clrpiece):
 			x = int(x)
 			y = int(y)
 			shape = 0
-			if img[y][x+10] > 0 and img[y][x - 10] == 0:
+			if img[y][x+20] > 0 and img[y][x - 20] == 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'flat', fontsize=12, color='white')
 				shape = 0
-			elif img[y][x+10] > 0 and img[y][x - 10] > 0:
+			elif img[y][x+20] > 0 and img[y][x - 20] > 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'head', fontsize=12, color='white')
 				shape = 1
-			elif img[y][x+10] == 0 and img[y][x - 10] == 0:
+			elif img[y][x+20] == 0 and img[y][x - 20] == 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'hole', fontsize=12, color='white')
 				shape = -1
@@ -119,15 +130,15 @@ def label_sides(img, piece, clrpiece):
 			x = int(x)
 			y = int(y)
 			shape = 0
-			if img[y + 10][x] > 0 and img[y - 10][x] == 0:
+			if img[y + 20][x] > 0 and img[y - 20][x] == 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'flat', fontsize=12, color='white')
 				shape = 0
-			elif img[y + 10][x] > 0 and img[y - 10][x] > 0:
+			elif img[y + 20][x] > 0 and img[y - 20][x] > 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'head', fontsize=12, color='white')
 				shape = 1
-			elif img[y + 10][x] == 0 and img[y - 10][x] == 0:
+			elif img[y + 20][x] == 0 and img[y - 20][x] == 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'hole', fontsize=12, color='white')
 				shape = -1
@@ -145,15 +156,15 @@ def label_sides(img, piece, clrpiece):
 			x = int(x)
 			y = int(y)
 			shape = 0
-			if img[y][x-10] > 0 and img[y][x + 10] == 0:
+			if img[y][x-20] > 0 and img[y][x + 20] == 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'flat', fontsize=12, color='white')
 				shape = 0
-			elif img[y][x-10] > 0 and img[y][x + 10] > 0:
+			elif img[y][x-20] > 0 and img[y][x + 20] > 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'head', fontsize=12, color='white')
 				shape = 1
-			elif img[y][x-10] == 0 and img[y][x + 10] == 0:
+			elif img[y][x-20] == 0 and img[y][x + 20] == 0:
 				plt.plot(x, y, 'ro')
 				plt.text(x * (1 + 0.01), y * (1 + 0.01) , 'hole', fontsize=12, color='white')
 				shape = -1
@@ -175,8 +186,8 @@ def label_sides(img, piece, clrpiece):
 	img = np.load(clrpiece)
 	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 	img = rotate(img, angle)
-	plt.imshow(img)
-	plt.show()
+	# plt.imshow(img)
+	# plt.show()
 
 	return corners, edge_shape, side_lengths, img
 
@@ -227,14 +238,14 @@ def polarize(img, center):
 
     return thetas, rhos
 
-def find_offset(img, center):
+def find_offset(img, center, n):
 
 	thetas, rhos = polarize(img, center)
 
 	#Finding local maximums (corners)
 	local_max_indices = []
 	local_maxes = []
-	n = 13
+	#n = 50
 	for idx, rho in enumerate(rhos):
 	    if idx < n or idx > len(rhos) - n+1:
 	        continue
@@ -285,7 +296,7 @@ def find_offset(img, center):
 	# plt.show()
 	return offset
 
-def find_corners(img, interval):
+def find_corners(img, interval, n):
 
 	#Creating box around puzzle piece to find centroid.
 	ret,thresh = cv2.threshold(img,127,255,0)
@@ -311,7 +322,7 @@ def find_corners(img, interval):
 	#Finding local maximums (corners)
 	local_max_indices = []
 	local_maxes = []
-	n = 13
+	#n = 50
 	for idx, rho in enumerate(rhos):
 	    if idx < n or idx > len(rhos) - n+1:
 	        continue
