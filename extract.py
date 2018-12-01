@@ -91,14 +91,14 @@ def pieceExtraction(CCL, img, store_files=True	):
 	if store_files:
 		for i in range(len(segmented_bw)):
 			piece = segmented_bw[i].astype('uint8')	
-			np.save('piece_%s.npy' % i, piece)
+			np.save('piece_%s' % i, piece)
 
 
 		for i in range(len(segmented_clr)):
 			piece = segmented_clr[i].astype('uint8')
 			# plt.imshow(cv2.cvtColor(piece, cv2.COLOR_BGR2RGB))
 			# plt.show()
-			np.save('piece_clr_%s.npy' % i, piece)
+			np.save('piece_clr_%s' % i, piece)
 
 	return 
 
