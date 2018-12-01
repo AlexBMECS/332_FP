@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def colorError(pixel_a, pixel_b):
+def color_error(pixel_a, pixel_b):
 	r_1 = pixel_a[2]
 	g_1 = pixel_a[1]
 	b_1 = pixel_a[0]
@@ -21,32 +21,39 @@ def average_error(region_1, region_2):
 
 	Take average of each row (across columns). Assume comparisons made row-by-row.
 	Will have # pixels averaged corresponding to # rows.
-
 	'''
-	val_1 = np.zeros([3])
-	val_2 = np.zeros([3])
+
+	# Apply transpose: horizontal comparisons: want matrix to be taller than it is wide (more rows than columns)
 
 
-	val_1[0] = np.mean(region_1[:,:,0])
-	val_1[1] = np.mean(region_1[:,:,1])
-	val_1[2] = np.mean(region_1[:,:,2])
+	if region_1.shape[0] < region_1.shape[1]:
+		region_1 = region_1.swapaxes(0,1)
 
-	val_2[0] = np.mean(region_2[:,:,0])
-	val_2[1] = np.mean(region_2[:,:,1])
-	val_2[2] = np.mean(region_2[:,:,2])
-
-	colorError(val_1, val_2)
-
-	# for i in range(40):
-	# 	pixel_1 = row_1[i]
-	# 	pixel_2 = row_2[i]
-
-	# 	err = colorError(pixel_1, pixel_2)
-	# 	total_err += err
-
-	# return total_err / 40
+	if region_2.shape[0] < region_2.shape[1]:
+		region_2 = region_2.swapaxes(0,1)
 
 
-average_error()
+	avg_1 = np.mean(region_1, axis=1)
+	avg_2 = np.mean(region_2, axis=1)
 
+	err = 0
+
+	for i in range(avg_1.shape[0]):
+		pixel_1 = avg_1[i,:]
+		pixel_2 = avg_2[i,:]
+
+		err += color_error(pixel_1, pixel_2)
+
+	return err / avg_1.shape[0]
+
+
+def main():
+	a1 = np.zeros([5, 20, 3])
+	a2 = np.zeros([20, 5, 3])
+	avg = average_error(a1,a2)
+	print(avg)
+
+
+if __name__ == "__main__":
+	main()
 
