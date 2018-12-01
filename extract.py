@@ -105,7 +105,7 @@ def pieceExtraction(CCL, img, store_files=True	):
 
 def main():
 	img = cv2.imread('squirrel.jpg')
-	CCL = np.loadtxt('labeled_components.csv', delimiter=',')
+	CCL = np.load('labeled_components')
 	pieceExtraction(CCL, img)
 
 
