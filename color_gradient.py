@@ -25,6 +25,10 @@ def average_error(region_1, region_2):
 	'''
 
 	# Transpose ndarrays to check for correct shape.
+
+	region_1 = region_1.astype('float64')
+	region_2 = region_2.astype('float64')
+
 	if region_1.shape[0] < region_1.shape[1]:
 		region_1 = region_1.swapaxes(0,1)
 
